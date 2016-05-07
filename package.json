@@ -1,0 +1,42 @@
+{
+  "name": "nodemailer-trap-plugin",
+  "version": "1.0.0",
+  "description": "Nodemailer plugin to intercept emails in non production environments",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:killmenot/nodemailer-trap-plugin.git"
+  },
+  "keywords": [
+    "nodemailer",
+    "plugin",
+    "trap",
+    "interceptor",
+    "staging",
+    "non production",
+    "environment"
+  ],
+  "author": {
+    "name": "Alexey Kucherenko",
+    "url": "https://github.com/killmenot"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/killmenot/nodemailer-trap-plugin/issues"
+  },
+  "homepage": "https://github.com/killmenot/nodemailer-trap-plugin",
+  "dependencies": {
+    "addressparser": "^1.0.1",
+    "string-format": "^0.5.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "load-grunt-tasks": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
