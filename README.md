@@ -1,6 +1,9 @@
 
 # The Nodemailer plugin to intercept emails for non production environments
 
+[![Build Status](https://travis-ci.org/killmenot/nodemailer-trap-plugin.svg?branch=master)](https://travis-ci.org/killmenot/nodemailer-trap-plugin)
+[![Build Status](https://travis-ci.org/killmenot/nodemailer-trap-plugin.svg?branch=master)](https://travis-ci.org/killmenot/nodemailer-trap-plugin)
+
 ## Install
 
 Install from npm
