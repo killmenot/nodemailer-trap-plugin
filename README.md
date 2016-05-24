@@ -32,6 +32,7 @@ Where
   * **options**
       * **to** - the email address used to send emails to. Default: `''`
       * **subject** - the subject formatted. Default: `'[DEBUG] - To: {0}, Subject: {1}'`
+      * **passthrough** - the regex to passthrough emails without modification (*It works only for single recipient*). Default: `''`.
 
 
 ## Example
@@ -42,17 +43,29 @@ var trap = require('nodemailer-trap-plugin').trap;
 var transporter = nodemailer.createTransport();
 
 transporter.use('compile', trap({
-    to: 'admin@example.org'
+    to: 'admin@example.org',
+    passthrough: '.*?@domain\.com/
 }));
+
+# first email
 transporter.sendMail({
     from: 'noreply@example.org',
     to: 'john.doe@example.com',
     subject: 'Hello John'
 });
 
+# second email
+transporter.sendMail({
+    from: 'noreply@example.org',
+    to: 'jane@domain.com',
+    subject: 'Hello Jane'
+});
+
 ```
 
-Email has been sent to `admin@example.org` with subject `"[DEBUG] - To: john.doe@example.com, Subject: john.doe@example.com"`
+The first email has been sent to `admin@example.org` with subject `"[DEBUG] - To: john.doe@example.com, Subject: john.doe@example.com"`
+
+The second email has been delivered to recipient without modifications because `to` field is satisfied `options.passthrough`
 
 
 ## License
