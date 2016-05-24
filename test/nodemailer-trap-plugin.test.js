@@ -15,20 +15,6 @@ describe('trap', function () {
     };
   });
 
-  it('default options', function (done) {
-    var obj = {
-      options: {}
-    };
-
-    plugin = trap(obj.options);
-    
-    plugin(mail, function () {
-      expect(obj.options.subject).to.equal('[DEBUG] - To: {0}, Subject: {1}');
-      expect(obj.options.to).to.equal('');
-      done();
-    });
-  });
-
   it('should stop processing when no mail', function (done) {
     plugin = trap(options);
 
@@ -190,62 +176,82 @@ describe('trap', function () {
     });
   });
 
-  it('should use custom options.subject', function (done) {
-    options = {
-      subject: 'custom subject'
-    };
+  describe('options.subject', function () {
+    beforeEach(function () {
+      mail = {
+        data: {
+          to: 'admin@example.org',
+          subject: 'Hello'
+        }
+      };
+    });
 
-    mail = {
-      data: {}
-    };
+    it('without formatting', function (done) {
+      options = {
+        subject: 'custom subject'
+      };
 
-    plugin = trap(options);
+      plugin = trap(options);
 
-    plugin(mail, function () {
-      expect(mail.data.subject).to.equal('custom subject');
-      done();
+      plugin(mail, function () {
+        expect(mail.data.subject).to.equal('custom subject');
+        done();
+      });
+    });
+
+    it('with formatting', function (done) {
+      options = {
+        subject: '{0}{1}{2}'
+      };
+
+      plugin = trap(options);
+
+      plugin(mail, function () {
+        expect(mail.data.subject).to.equal('admin@example.orgHello');
+        done();
+      });
     });
   });
 
-  it('should use formatted options.subject', function (done) {
-    options = {
-      subject: '{0}{1}{2}'
-    };
-
-    mail = {
-      data: {
+  describe('options.passthrough', function () {
+    beforeEach(function () {
+      options = {
         to: 'admin@example.org',
-        subject: 'Hello'
-      }
-    };
+        passthrough: '.*?@example\.org'
+      };
 
-    plugin = trap(options);
-
-    plugin(mail, function () {
-      expect(mail.data.subject).to.equal('admin@example.orgHello');
-      done();
+      mail = {
+        data: {
+          to: 'foo@example.org',
+          subject: 'Hello',
+        }
+      };
     });
-  });
 
-  it('should throw error for multiple to recipients when using options.passthrough', function (done) {
-    options = {
-      passthrough: /.*?@example\.org/
-    };
+    it('should throw error for multiple to recipients when using options.passthrough', function (done) {
+      mail.data.to = [
+        'foo@example.org',
+        'bar@example.org',
+      ];
 
-    mail = {
-      data: {
-        to: [
-          'foo@example.org',
-          'bar@example.org',
-        ]
-      }
-    };
+      plugin = trap(options);
 
-    plugin = trap(options);
+      plugin(mail, function (err) {
+        expect(err).to.match(/options\.passthrough can be used only with a single recipient only\./);
+        done();
+      });
+    });
 
-    plugin(mail, function (err) {
-      expect(err).to.match(/options\.passthrough can be used only with a single recipient only\./);
-      done();
+    it('should accept string in options.passthrough', function (done) {
+      mail.data.to = 'foo@example.org';
+
+      plugin = trap(options);
+
+      plugin(mail, function () {
+        expect(mail.data.to).to.equal('foo@example.org');
+        expect(mail.data.subject).to.equal('Hello');
+        done();
+      });
     });
   });
 });

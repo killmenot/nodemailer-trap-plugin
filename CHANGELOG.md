@@ -1,11 +1,11 @@
 
-<a name="1.1.0"></a>
-### 1.0.1 (2016-05-24)
+<a name="1.0.2"></a>
+### 1.0.2 (2016-05-24)
 
 
 #### Features
 
-* provides ability to passthrough emails sent to one recipient
+* provides ability to passthrough emails sent to one recipient. The passthrough can be regex object or regex string
 
 
 <a name="1.0.0"></a>

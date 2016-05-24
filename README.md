@@ -32,7 +32,7 @@ Where
   * **options**
       * **to** - the email address used to send emails to. Default: `''`
       * **subject** - the subject formatted. Default: `'[DEBUG] - To: {0}, Subject: {1}'`
-      * **passthrough** - the regex to passthrough emails without modification (*It works only for single recipient*). Default: `''`.
+      * **passthrough** - the regex / string to passthrough emails without modification (*It works only for single recipient*). Default: `false`.
 
 
 ## Example
