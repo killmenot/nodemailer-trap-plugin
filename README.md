@@ -44,7 +44,7 @@ var transporter = nodemailer.createTransport();
 
 transporter.use('compile', trap({
     to: 'admin@example.org',
-    passthrough: '.*?@domain\.com/
+    passthrough: /.*?@domain\.com/
 }));
 
 # first email
