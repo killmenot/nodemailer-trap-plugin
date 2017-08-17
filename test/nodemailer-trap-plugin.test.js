@@ -217,7 +217,7 @@ describe('trap', function () {
     beforeEach(function () {
       options = {
         to: 'admin@example.org',
-        passthrough: '.*?@example\.org'
+        passthrough: /foo/
       };
 
       mail = {
@@ -237,19 +237,77 @@ describe('trap', function () {
       plugin = trap(options);
 
       plugin(mail, function (err) {
-        expect(err).to.match(/options\.passthrough can be used only with a single recipient only\./);
+        expect(err.message).to.match(/options\.passthrough can be used with a single recipient only\./);
         done();
       });
     });
 
-    it('should accept string in options.passthrough', function (done) {
-      mail.data.to = 'foo@example.org';
+    context('regexp passed', function () {
+      beforeEach(function () {
+        options = {
+          to: 'admin@example.org',
+          passthrough: /.*?@example\.org/
+        };
+
+        mail = {
+          data: {
+            to: 'foo@example.org',
+            subject: 'Hello',
+          }
+        };
+      });
+
+      it('should not be trapped', function (done) {
+        mail.data.to = 'foo@example.org';
+
+        plugin = trap(options);
+
+        plugin(mail, function () {
+          expect(mail.data.to).to.equal('foo@example.org');
+          expect(mail.data.subject).to.equal('Hello');
+          done();
+        });
+      });
+    })
+
+    context('string passed', function () {
+      beforeEach(function () {
+        options = {
+          to: 'admin@example.org',
+          passthrough: 'foo'
+        };
+
+        mail = {
+          data: {
+            to: 'foo@example.org',
+            subject: 'Hello',
+          }
+        };
+      });
+
+      it('should not be trapped', function (done) {
+        mail.data.to = 'foo@example.org';
+
+        plugin = trap(options);
+
+        plugin(mail, function () {
+          expect(mail.data.to).to.equal('foo@example.org');
+          expect(mail.data.subject).to.equal('Hello');
+          done();
+        });
+      });
+    })
+
+    it('should be trapped', function (done) {
+      mail.data.to = [
+        'bar@example.org'
+      ];
 
       plugin = trap(options);
 
       plugin(mail, function () {
-        expect(mail.data.to).to.equal('foo@example.org');
-        expect(mail.data.subject).to.equal('Hello');
+        expect(mail.data.to).to.equal('admin@example.org');
+        expect(mail.data.subject).to.equal('[DEBUG] - To: bar@example.org, Subject: Hello');
         done();
       });
     });

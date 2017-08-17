@@ -2,6 +2,7 @@
 # The Nodemailer plugin to intercept emails for non production environments
 
 [![Build Status](https://travis-ci.org/killmenot/nodemailer-trap-plugin.svg?branch=master)](https://travis-ci.org/killmenot/nodemailer-trap-plugin)
+[![Coverage Status](https://coveralls.io/repos/github/killmenot/nodemailer-trap-plugin/badge.svg?branch=master)](https://coveralls.io/github/killmenot/nodemailer-trap-plugin?branch=master)
 [![Dependency Status](https://gemnasium.com/badges/github.com/killmenot/nodemailer-trap-plugin.svg)](https://gemnasium.com/github.com/killmenot/nodemailer-trap-plugin)
 [![npm version](https://badge.fury.io/js/nodemailer-trap-plugin.svg)](https://badge.fury.io/js/nodemailer-trap-plugin)
 
