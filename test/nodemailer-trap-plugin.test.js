@@ -268,7 +268,7 @@ describe('trap', function () {
           done();
         });
       });
-    })
+    });
 
     context('string passed', function () {
       beforeEach(function () {
@@ -296,7 +296,37 @@ describe('trap', function () {
           done();
         });
       });
-    })
+    });
+
+    context('function passed', function () {
+      beforeEach(function () {
+        options = {
+          to: 'admin@example.org',
+          passthrough: function (addr) {
+            return addr.includes('foo');
+          }
+        };
+
+        mail = {
+          data: {
+            to: 'foo@example.org',
+            subject: 'Hello',
+          }
+        };
+      });
+
+      it('should not be trapped', function (done) {
+        mail.data.to = 'foo@example.org';
+
+        plugin = trap(options);
+
+        plugin(mail, function () {
+          expect(mail.data.to).to.equal('foo@example.org');
+          expect(mail.data.subject).to.equal('Hello');
+          done();
+        });
+      });
+    });
 
     it('should be trapped', function (done) {
       mail.data.to = [
