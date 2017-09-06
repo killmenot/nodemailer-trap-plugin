@@ -303,7 +303,7 @@ describe('trap', function () {
         options = {
           to: 'admin@example.org',
           passthrough: function (addr) {
-            return addr.includes('foo');
+            return addr === 'foo@example.org';
           }
         };
 
