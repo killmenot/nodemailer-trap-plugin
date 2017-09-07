@@ -242,6 +242,22 @@ describe('trap', function () {
       });
     });
 
+    it('should throw error if options.passthrough is wrong type', function (done) {
+      options = {
+        to: 'admin@example.org',
+        passthrough: 12345,
+      };
+
+      mail.data.to = 'foo@example.org';
+
+      plugin = trap(options);
+
+      plugin(mail, function (err) {
+        expect(err.message).to.match(/options\.passthrough can be only a string, regex or function\./);
+        done();
+      });
+    });
+
     context('regexp passed', function () {
       beforeEach(function () {
         options = {
