@@ -33,6 +33,22 @@ describe('trap', function () {
     });
   });
 
+  it('should throw error when options.to is missed', function (done) {
+    mail = {
+      data: {
+        to: 'foo@example.org',
+        subject: 'Hello'
+      }
+    };
+
+    plugin = trap();
+
+    plugin(mail, function (err) {
+      expect(err.message).to.match(/options\.to is missed\./);
+      done();
+    });
+  });
+
   it('should replace mail.to', function (done) {
     mail = {
       data: {
@@ -56,6 +72,18 @@ describe('trap', function () {
           subject: 'Hello'
         }
       };
+    });
+
+    context('empty', function () {
+      it('should not be trapped', function (done) {
+        plugin = trap(options);
+
+        plugin(mail, function () {
+          expect(mail.data.to).to.equal(undefined);
+          expect(mail.data.subject).to.equal('Hello');
+          done();
+        });
+      });
     });
 
     context('plain email address', function () {
@@ -188,6 +216,7 @@ describe('trap', function () {
 
     it('without formatting', function (done) {
       options = {
+        to: 'admin@example.org',
         subject: 'custom subject'
       };
 
@@ -201,6 +230,7 @@ describe('trap', function () {
 
     it('with formatting', function (done) {
       options = {
+        to: 'admin@example.org',
         subject: '{0}{1}{2}'
       };
 
