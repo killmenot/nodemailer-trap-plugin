@@ -242,6 +242,22 @@ describe('trap', function () {
       });
     });
 
+    it('should throw error if options.passthrough is wrong type', function (done) {
+      options = {
+        to: 'admin@example.org',
+        passthrough: 12345,
+      };
+
+      mail.data.to = 'foo@example.org';
+
+      plugin = trap(options);
+
+      plugin(mail, function (err) {
+        expect(err.message).to.match(/options\.passthrough can be only a string, regex or function\./);
+        done();
+      });
+    });
+
     context('regexp passed', function () {
       beforeEach(function () {
         options = {
@@ -268,7 +284,7 @@ describe('trap', function () {
           done();
         });
       });
-    })
+    });
 
     context('string passed', function () {
       beforeEach(function () {
@@ -296,7 +312,37 @@ describe('trap', function () {
           done();
         });
       });
-    })
+    });
+
+    context('function passed', function () {
+      beforeEach(function () {
+        options = {
+          to: 'admin@example.org',
+          passthrough: function (addr) {
+            return addr === 'foo@example.org';
+          }
+        };
+
+        mail = {
+          data: {
+            to: 'foo@example.org',
+            subject: 'Hello',
+          }
+        };
+      });
+
+      it('should not be trapped', function (done) {
+        mail.data.to = 'foo@example.org';
+
+        plugin = trap(options);
+
+        plugin(mail, function () {
+          expect(mail.data.to).to.equal('foo@example.org');
+          expect(mail.data.subject).to.equal('Hello');
+          done();
+        });
+      });
+    });
 
     it('should be trapped', function (done) {
       mail.data.to = [
