@@ -1,6 +1,6 @@
 {
   "name": "nodemailer-trap-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Nodemailer plugin to intercept emails in non production environments",
   "main": "index.js",
   "scripts": {

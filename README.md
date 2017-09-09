@@ -1,10 +1,7 @@
 
 # The Nodemailer plugin to intercept emails for non production environments
 
-[![Build Status](https://travis-ci.org/killmenot/nodemailer-trap-plugin.svg?branch=master)](https://travis-ci.org/killmenot/nodemailer-trap-plugin)
-[![Coverage Status](https://coveralls.io/repos/github/killmenot/nodemailer-trap-plugin/badge.svg?branch=master)](https://coveralls.io/github/killmenot/nodemailer-trap-plugin?branch=master)
-[![Dependency Status](https://gemnasium.com/badges/github.com/killmenot/nodemailer-trap-plugin.svg)](https://gemnasium.com/github.com/killmenot/nodemailer-trap-plugin)
-[![npm version](https://badge.fury.io/js/nodemailer-trap-plugin.svg)](https://badge.fury.io/js/nodemailer-trap-plugin)
+[![npm version](https://badge.fury.io/js/nodemailer-trap-plugin.svg)](https://badge.fury.io/js/nodemailer-trap-plugin) [![Build Status](https://travis-ci.org/killmenot/nodemailer-trap-plugin.svg?branch=master)](https://travis-ci.org/killmenot/nodemailer-trap-plugin) [![Coverage Status](https://coveralls.io/repos/github/killmenot/nodemailer-trap-plugin/badge.svg?branch=master)](https://coveralls.io/github/killmenot/nodemailer-trap-plugin?branch=master) [![Dependency Status](https://gemnasium.com/badges/github.com/killmenot/nodemailer-trap-plugin.svg)](https://gemnasium.com/github.com/killmenot/nodemailer-trap-plugin)
 
 
 ## Install
@@ -31,9 +28,9 @@ nodemailerTransport.use('compile', trap(options))
 Where
 
   * **options**
-      * **to** - the email address used to send emails to. Default: `''`
-      * **subject** - the subject formatted. Default: `'[DEBUG] - To: {0}, Subject: {1}'`
-      * **passthrough** - the regex / string / function to passthrough emails without modification (*It works only for single recipient*). Default: `false`.
+    * **to** - the email address used to send emails to. Default: `''`
+    * **subject** - the subject formatted. Default: `'[DEBUG] - To: {0}, Subject: {1}'`
+    * **passthrough** - the regex / string / function to passthrough emails without modification (*It works only for single recipient*). Default: `false`.
 
 
 ## Example
@@ -44,26 +41,22 @@ var trap = require('nodemailer-trap-plugin').trap;
 var transporter = nodemailer.createTransport();
 
 transporter.use('compile', trap({
-    to: 'admin@example.org',
-    // or passthrough: '@domain.com',
-    // or passthrough: /.*?@domain\.com/,
-    passthrough: function (address) {
-        return address.endsWith('@domain.com');
-    }
+  to: 'admin@example.org',
+  passthrough: '@domain.com'
 }));
 
-# first email
+// first email
 transporter.sendMail({
-    from: 'noreply@example.org',
-    to: 'john.doe@example.com',
-    subject: 'Hello John'
+  from: 'noreply@example.org',
+  to: 'john.doe@example.com',
+  subject: 'Hello John'
 });
 
-# second email
+// second email
 transporter.sendMail({
-    from: 'noreply@example.org',
-    to: 'jane@domain.com',
-    subject: 'Hello Jane'
+  from: 'noreply@example.org',
+  to: 'jane@domain.com',
+  subject: 'Hello Jane'
 });
 
 ```
@@ -71,6 +64,63 @@ transporter.sendMail({
 The first email has been sent to `admin@example.org` with subject `"[DEBUG] - To: john.doe@example.com, Subject: john.doe@example.com"`
 
 The second email has been delivered to recipient without modifications because `to` field is satisfied `options.passthrough`
+
+
+## passthrough
+
+#### String
+
+```javascript
+var nodemailer = require('nodemailer');
+var trap = require('nodemailer-trap-plugin').trap;
+var transporter = nodemailer.createTransport();
+
+transporter.use('compile', trap({
+  to: 'admin@example.org',
+  passthrough: '@domain.com'
+}));
+
+```
+
+#### Regex
+
+```javascript
+var nodemailer = require('nodemailer');
+var trap = require('nodemailer-trap-plugin').trap;
+var transporter = nodemailer.createTransport();
+
+transporter.use('compile', trap({
+  to: 'admin@example.org',
+  passthrough: /.*?@domain\.com/
+}));
+
+```
+
+#### Function
+
+```javascript
+var nodemailer = require('nodemailer');
+var trap = require('nodemailer-trap-plugin').trap;
+var transporter = nodemailer.createTransport();
+
+transporter.use('compile', trap({
+  to: 'admin@example.org',
+  passthrough: function (toAddress) {
+    return toAddress.indexOf('@domain.com') > -1;
+  }
+}));
+
+```
+
+
+## Release History
+
+See the [CHANGELOG](/CHANGELOG.md).
+
+
+## Contributors
+
+See the [list of project's contributors!](CONTRIBUTORS.md)
 
 
 ## License
