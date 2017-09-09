@@ -178,8 +178,7 @@ describe('trap', function () {
         mail.data.to = [
           'foo@example.org',
           '"Bar Bar" bar@example.org',
-          '"Jane Doe" <jane.doe@example.org>, "John, Doe" <john.doe@example.org>',
-          {
+          '"Jane Doe" <jane.doe@example.org>, "John, Doe" <john.doe@example.org>', {
             name: 'Baz',
             address: 'baz@example.org'
           }
