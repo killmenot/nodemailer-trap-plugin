@@ -1,8 +1,11 @@
 {
   "name": "nodemailer-trap-plugin",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Nodemailer plugin to intercept emails in non production environments",
   "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
   "author": {
     "name": "Alexey Kucherenko",
     "url": "https://github.com/killmenot"

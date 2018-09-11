@@ -1,3 +1,12 @@
+<a name="2.0.0"></a>
+### 2.0.0 (2018-09-11)
+
+#### Misc
+
+* drop support Node.js less than 4 version
+* bump deps
+
+
 <a name="1.0.4"></a>
 ### 1.0.4 (2017-09-19)
 
