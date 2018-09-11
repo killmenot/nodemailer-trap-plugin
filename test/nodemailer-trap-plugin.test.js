@@ -1,13 +1,11 @@
-/* globals context, beforeEach, describe, it */
-
 'use strict';
 
-var expect = require('chai').expect;
-var trap = require('../').trap;
-var format = require('string-format');
+const expect = require('chai').expect;
+const trap = require('../').trap;
+const format = require('string-format');
 
-describe('trap', function () {
-  var plugin, mail, options;
+describe('trap', () => {
+  let plugin, mail, options;
 
   beforeEach(function () {
     options = {
@@ -15,25 +13,25 @@ describe('trap', function () {
     };
   });
 
-  it('should stop processing when no mail', function (done) {
+  it('should stop processing when no mail', (done) => {
     plugin = trap(options);
 
-    plugin(mail, function () {
+    plugin(mail, () => {
       done();
     });
   });
 
-  it('should stop processing when no mail.data', function (done) {
+  it('should stop processing when no mail.data', (done) => {
     mail = {};
 
     plugin = trap(options);
 
-    plugin(mail, function () {
+    plugin(mail, () => {
       done();
     });
   });
 
-  it('should throw error when options.to is missed', function (done) {
+  it('should throw error when options.to is missed', (done) => {
     mail = {
       data: {
         to: 'foo@example.org',
@@ -49,7 +47,7 @@ describe('trap', function () {
     });
   });
 
-  it('should replace mail.to', function (done) {
+  it('should replace mail.to', (done) => {
     mail = {
       data: {
         to: 'foo@example.org',
@@ -59,13 +57,13 @@ describe('trap', function () {
 
     plugin = trap(options);
 
-    plugin(mail, function () {
+    plugin(mail, () => {
       expect(mail.data.subject).to.equal('[DEBUG] - To: foo@example.org, Subject: Hello');
       done();
     });
   });
 
-  describe('to', function () {
+  describe('to', () => {
     beforeEach(function () {
       mail = {
         data: {
@@ -74,11 +72,11 @@ describe('trap', function () {
       };
     });
 
-    context('empty', function () {
-      it('should not be trapped', function (done) {
+    context('empty', () => {
+      it('should not be trapped', (done) => {
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.equal(undefined);
           expect(mail.data.subject).to.equal('Hello');
           done();
@@ -86,26 +84,26 @@ describe('trap', function () {
       });
     });
 
-    context('plain email address', function () {
+    context('plain email address', () => {
       beforeEach(function () {
         mail.data.to = 'foo@example.org';
       });
 
-      it('should be trapped', function (done) {
+      it('should be trapped', (done) => {
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.subject).to.equal('[DEBUG] - To: foo@example.org, Subject: Hello');
           done();
         });
       });
 
-      it('should be passthrough', function (done) {
+      it('should be passthrough', (done) => {
         options.passthrough = /.*?@example\.org/gi;
 
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.equal('foo@example.org');
           expect(mail.data.subject).to.equal('Hello');
           done();
@@ -113,26 +111,26 @@ describe('trap', function () {
       });
     });
 
-    context('email address with formatted name', function () {
+    context('email address with formatted name', () => {
       beforeEach(function () {
         mail.data.to = '"John Doe" <john.doe@example.org>';
       });
 
-      it('should be trapped', function (done) {
+      it('should be trapped', (done) => {
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.subject).to.equal('[DEBUG] - To: "John Doe" <john.doe@example.org>, Subject: Hello');
           done();
         });
       });
 
-      it('should be passthrough', function (done) {
+      it('should be passthrough', (done) => {
         options.passthrough = /.*?@example\.org/;
 
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.equal('"John Doe" <john.doe@example.org>');
           expect(mail.data.subject).to.equal('Hello');
           done();
@@ -140,7 +138,7 @@ describe('trap', function () {
       });
     });
 
-    context('address object', function () {
+    context('address object', () => {
       beforeEach(function () {
         mail.data.to = {
           name: 'Jane Doe',
@@ -148,21 +146,21 @@ describe('trap', function () {
         };
       });
 
-      it('should be trapped', function (done) {
+      it('should be trapped', (done) => {
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.subject).to.equal('[DEBUG] - To: "Jane Doe" <jane.doe@example.org>, Subject: Hello');
           done();
         });
       });
 
-      it('should be passthrough', function (done) {
+      it('should be passthrough', (done) => {
         options.passthrough = /.*?@example\.org/;
 
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.eql({
             name: 'Jane Doe',
             address: 'jane.doe@example.org'
@@ -173,7 +171,7 @@ describe('trap', function () {
       });
     });
 
-    context('mixed', function () {
+    context('mixed', () => {
       beforeEach(function () {
         mail.data.to = [
           'foo@example.org',
@@ -185,11 +183,11 @@ describe('trap', function () {
         ];
       });
 
-      it('should be trapped', function (done) {
+      it('should be trapped', (done) => {
         plugin = trap(options);
 
-        plugin(mail, function () {
-          var addrs = [
+        plugin(mail, () => {
+          const addrs = [
             'foo@example.org',
             '"Bar Bar" <bar@example.org>',
             '"Jane Doe" <jane.doe@example.org>',
@@ -203,7 +201,7 @@ describe('trap', function () {
     });
   });
 
-  describe('options.subject', function () {
+  describe('options.subject', () => {
     beforeEach(function () {
       mail = {
         data: {
@@ -213,7 +211,7 @@ describe('trap', function () {
       };
     });
 
-    it('without formatting', function (done) {
+    it('without formatting', (done) => {
       options = {
         to: 'admin@example.org',
         subject: 'custom subject'
@@ -221,13 +219,13 @@ describe('trap', function () {
 
       plugin = trap(options);
 
-      plugin(mail, function () {
+      plugin(mail, () => {
         expect(mail.data.subject).to.equal('custom subject');
         done();
       });
     });
 
-    it('with formatting', function (done) {
+    it('with formatting', (done) => {
       options = {
         to: 'admin@example.org',
         subject: '{0}{1}{2}'
@@ -235,14 +233,14 @@ describe('trap', function () {
 
       plugin = trap(options);
 
-      plugin(mail, function () {
+      plugin(mail, () => {
         expect(mail.data.subject).to.equal('admin@example.orgHello');
         done();
       });
     });
   });
 
-  describe('options.passthrough', function () {
+  describe('options.passthrough', () => {
     beforeEach(function () {
       options = {
         to: 'admin@example.org',
@@ -257,7 +255,7 @@ describe('trap', function () {
       };
     });
 
-    it('should throw error for multiple to recipients when using options.passthrough', function (done) {
+    it('should throw error for multiple to recipients when using options.passthrough', (done) => {
       mail.data.to = [
         'foo@example.org',
         'bar@example.org',
@@ -271,7 +269,7 @@ describe('trap', function () {
       });
     });
 
-    it('should throw error if options.passthrough is wrong type', function (done) {
+    it('should throw error if options.passthrough is wrong type', (done) => {
       options = {
         to: 'admin@example.org',
         passthrough: 12345,
@@ -287,7 +285,7 @@ describe('trap', function () {
       });
     });
 
-    context('regexp passed', function () {
+    context('regexp passed', () => {
       beforeEach(function () {
         options = {
           to: 'admin@example.org',
@@ -302,12 +300,12 @@ describe('trap', function () {
         };
       });
 
-      it('should not be trapped', function (done) {
+      it('should not be trapped', (done) => {
         mail.data.to = 'foo@example.org';
 
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.equal('foo@example.org');
           expect(mail.data.subject).to.equal('Hello');
           done();
@@ -315,7 +313,7 @@ describe('trap', function () {
       });
     });
 
-    context('string passed', function () {
+    context('string passed', () => {
       beforeEach(function () {
         options = {
           to: 'admin@example.org',
@@ -330,12 +328,12 @@ describe('trap', function () {
         };
       });
 
-      it('should not be trapped', function (done) {
+      it('should not be trapped', (done) => {
         mail.data.to = 'foo@example.org';
 
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.equal('foo@example.org');
           expect(mail.data.subject).to.equal('Hello');
           done();
@@ -343,7 +341,7 @@ describe('trap', function () {
       });
     });
 
-    context('function passed', function () {
+    context('function passed', () => {
       beforeEach(function () {
         options = {
           to: 'admin@example.org',
@@ -360,12 +358,12 @@ describe('trap', function () {
         };
       });
 
-      it('should not be trapped', function (done) {
+      it('should not be trapped', (done) => {
         mail.data.to = 'foo@example.org';
 
         plugin = trap(options);
 
-        plugin(mail, function () {
+        plugin(mail, () => {
           expect(mail.data.to).to.equal('foo@example.org');
           expect(mail.data.subject).to.equal('Hello');
           done();
@@ -373,14 +371,14 @@ describe('trap', function () {
       });
     });
 
-    it('should be trapped', function (done) {
+    it('should be trapped', (done) => {
       mail.data.to = [
         'bar@example.org'
       ];
 
       plugin = trap(options);
 
-      plugin(mail, function () {
+      plugin(mail, () => {
         expect(mail.data.to).to.equal('admin@example.org');
         expect(mail.data.subject).to.equal('[DEBUG] - To: bar@example.org, Subject: Hello');
         done();

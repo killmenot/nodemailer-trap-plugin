@@ -3,6 +3,7 @@
   "bitwise": true,
   "camelcase": true,
   "curly": true,
+  "esversion": 6,
   "forin": true,
   "immed": true,
   "latedef": true,
@@ -14,5 +15,15 @@
   "undef": true,
   "unused": true,
   "trailing": true,
-  "laxcomma": true
+  "laxcomma": true,
+  "globals": {
+    /* MOCHA */
+    "describe": false,
+    "it": false,
+    "context": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false
+  }
 }
