@@ -7,7 +7,7 @@ const format = require('string-format');
 describe('trap', () => {
   let plugin, mail, options;
 
-  beforeEach(function () {
+  beforeEach(() => {
     options = {
       to: 'admin@example.org'
     };
@@ -41,7 +41,7 @@ describe('trap', () => {
 
     plugin = trap();
 
-    plugin(mail, function (err) {
+    plugin(mail, (err) => {
       expect(err.message).to.match(/options\.to is missed\./);
       done();
     });
@@ -64,7 +64,7 @@ describe('trap', () => {
   });
 
   describe('to', () => {
-    beforeEach(function () {
+    beforeEach(() => {
       mail = {
         data: {
           subject: 'Hello'
@@ -85,7 +85,7 @@ describe('trap', () => {
     });
 
     context('plain email address', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         mail.data.to = 'foo@example.org';
       });
 
@@ -112,7 +112,7 @@ describe('trap', () => {
     });
 
     context('email address with formatted name', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         mail.data.to = '"John Doe" <john.doe@example.org>';
       });
 
@@ -139,7 +139,7 @@ describe('trap', () => {
     });
 
     context('address object', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         mail.data.to = {
           name: 'Jane Doe',
           address: 'jane.doe@example.org'
@@ -172,7 +172,7 @@ describe('trap', () => {
     });
 
     context('mixed', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         mail.data.to = [
           'foo@example.org',
           '"Bar Bar" bar@example.org',
@@ -202,7 +202,7 @@ describe('trap', () => {
   });
 
   describe('options.subject', () => {
-    beforeEach(function () {
+    beforeEach(() => {
       mail = {
         data: {
           to: 'admin@example.org',
@@ -241,7 +241,7 @@ describe('trap', () => {
   });
 
   describe('options.passthrough', () => {
-    beforeEach(function () {
+    beforeEach(() => {
       options = {
         to: 'admin@example.org',
         passthrough: /foo/
@@ -263,7 +263,7 @@ describe('trap', () => {
 
       plugin = trap(options);
 
-      plugin(mail, function (err) {
+      plugin(mail, (err) => {
         expect(err.message).to.match(/options\.passthrough can be used with a single recipient only\./);
         done();
       });
@@ -279,14 +279,14 @@ describe('trap', () => {
 
       plugin = trap(options);
 
-      plugin(mail, function (err) {
+      plugin(mail, (err) => {
         expect(err.message).to.match(/options\.passthrough can be only a string, regex or function\./);
         done();
       });
     });
 
     context('regexp passed', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         options = {
           to: 'admin@example.org',
           passthrough: /.*?@example\.org/
@@ -314,7 +314,7 @@ describe('trap', () => {
     });
 
     context('string passed', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         options = {
           to: 'admin@example.org',
           passthrough: 'foo'
@@ -342,7 +342,7 @@ describe('trap', () => {
     });
 
     context('function passed', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         options = {
           to: 'admin@example.org',
           passthrough: function (addr) {
