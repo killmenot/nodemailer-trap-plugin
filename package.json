@@ -55,7 +55,6 @@
   "devDependencies": {
     "chai": "^4.1.1",
     "coveralls": "^3.0.2",
-    "grunt": "^1.0.1",
     "jshint": "^2.9.6",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
