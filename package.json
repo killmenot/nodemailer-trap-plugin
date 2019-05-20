@@ -4,7 +4,7 @@
   "description": "Nodemailer plugin to intercept emails in non production environments",
   "main": "index.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=8"
   },
   "author": {
     "name": "Alexey Kucherenko",
@@ -49,15 +49,15 @@
   },
   "dependencies": {
     "addressparser": "^1.0.1",
-    "escape-string-regexp": "^1.0.5",
+    "escape-string-regexp": "^2.0.0",
     "string-format": "^2.0.0"
   },
   "devDependencies": {
-    "chai": "^4.1.1",
-    "coveralls": "^3.0.2",
-    "jshint": "^2.9.6",
-    "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "jshint": "^2.10.2",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
     "pre-commit": "^1.2.2"
   }
 }
