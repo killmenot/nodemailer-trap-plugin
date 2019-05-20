@@ -1,5 +1,14 @@
 # CHANGELOG
 
+<a name="3.0.0"></a>
+### 3.0.0 (2019-05-20)
+
+#### Misc
+
+* drop support Node.js less than 8 version
+* bump deps
+
+
 <a name="2.0.1"></a>
 ### 2.0.0 (2018-09-13)
 
