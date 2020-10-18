@@ -29,7 +29,9 @@
     "url": "https://github.com/killmenot/nodemailer-trap-plugin/issues"
   },
   "scripts": {
-    "lint": "eslint lib test index.js --fix",
+    "eslint": "eslint lib test index.js --fix",
+    "remark": "remark .",
+    "lint": "npm run eslint && npm run remark",
     "test": "mocha",
     "coverage": "nyc --reporter=html --reporter=text mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
@@ -41,6 +43,11 @@
     ],
     "exclude": [
       "test/**/*.js"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
     ]
   },
   "dependencies": {
@@ -62,6 +69,8 @@
     "husky": "^4.3.0",
     "jshint": "^2.12.0",
     "mocha": "^8.2.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "remark-cli": "^8.0.1",
+    "remark-preset-lint-recommended": "^4.0.1"
   }
 }

@@ -25,12 +25,11 @@ var trap = require('nodemailer-trap-plugin').trap;
 nodemailerTransport.use('compile', trap(options))
 ```
 
-Where
+Where **options**
 
-  * **options**
-    * **to** - the email address used to send emails to. Default: `''`
-    * **subject** - the subject formatted. Default: `'[DEBUG] - To: {0}, Subject: {1}'`
-    * **passthrough** - the regex / string / function to passthrough emails without modification (*It works only for single recipient*). Default: `false`.
+-   **to** - the email address used to send emails to. Default: `''`
+-   **subject** - the subject formatted. Default: `'[DEBUG] - To: {0}, Subject: {1}'`
+-   **passthrough** - the regex / string / function to passthrough emails without modification (*It works only for single recipient*). Default: `false`.
 
 
 ## Example
