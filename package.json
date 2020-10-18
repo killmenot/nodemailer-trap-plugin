@@ -49,15 +49,15 @@
   },
   "dependencies": {
     "addressparser": "^1.0.1",
-    "escape-string-regexp": "^2.0.0",
+    "escape-string-regexp": "^4.0.0",
     "string-format": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.3",
-    "jshint": "^2.10.2",
-    "mocha": "^6.1.4",
-    "nyc": "^14.1.1",
+    "coveralls": "^3.1.0",
+    "jshint": "^2.12.0",
+    "mocha": "^8.2.0",
+    "nyc": "^15.1.0",
     "pre-commit": "^1.2.2"
   }
 }
