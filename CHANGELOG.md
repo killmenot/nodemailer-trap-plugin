@@ -1,5 +1,17 @@
 # CHANGELOG
 
+<a name="4.0.0"></a>
+### 4.0.0 (2020-10-18)
+
+#### Misc
+
+*   chore: drop support Node.js less than 10 version
+*   chore: add commitlint
+*   chore: add remark
+*   chore: add eslint, remove jshint
+*   chore: bump deps
+
+
 <a name="3.0.0"></a>
 ### 3.0.0 (2019-05-20)
 
