@@ -250,7 +250,7 @@ describe('trap', () => {
       mail = {
         data: {
           to: 'foo@example.org',
-          subject: 'Hello',
+          subject: 'Hello'
         }
       };
     });
@@ -258,7 +258,7 @@ describe('trap', () => {
     it('should throw error for multiple to recipients when using options.passthrough', (done) => {
       mail.data.to = [
         'foo@example.org',
-        'bar@example.org',
+        'bar@example.org'
       ];
 
       plugin = trap(options);
@@ -272,7 +272,7 @@ describe('trap', () => {
     it('should throw error if options.passthrough is wrong type', (done) => {
       options = {
         to: 'admin@example.org',
-        passthrough: 12345,
+        passthrough: 12345
       };
 
       mail.data.to = 'foo@example.org';
@@ -295,7 +295,7 @@ describe('trap', () => {
         mail = {
           data: {
             to: 'foo@example.org',
-            subject: 'Hello',
+            subject: 'Hello'
           }
         };
       });
@@ -323,7 +323,7 @@ describe('trap', () => {
         mail = {
           data: {
             to: 'foo@example.org',
-            subject: 'Hello',
+            subject: 'Hello'
           }
         };
       });
@@ -353,7 +353,7 @@ describe('trap', () => {
         mail = {
           data: {
             to: 'foo@example.org',
-            subject: 'Hello',
+            subject: 'Hello'
           }
         };
       });

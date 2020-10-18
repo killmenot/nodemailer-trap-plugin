@@ -29,7 +29,7 @@
     "url": "https://github.com/killmenot/nodemailer-trap-plugin/issues"
   },
   "scripts": {
-    "lint": "jshint lib test index.js",
+    "lint": "eslint lib test index.js --fix",
     "test": "mocha",
     "coverage": "nyc --reporter=html --reporter=text mocha",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
@@ -53,8 +53,14 @@
     "@commitlint/config-conventional": "^11.0.0",
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
-    "jshint": "^2.12.0",
+    "eslint": "^7.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.3.0",
+    "jshint": "^2.12.0",
     "mocha": "^8.2.0",
     "nyc": "^15.1.0"
   }
