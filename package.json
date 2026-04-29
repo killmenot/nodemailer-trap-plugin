@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "addressparser": "^1.0.1",
-    "escape-string-regexp": "^5.0.0",
+    "escape-string-regexp": "^4.0.0",
     "string-format": "^2.0.0"
   },
   "devDependencies": {
