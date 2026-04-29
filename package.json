@@ -38,8 +38,7 @@
     "remark": "remark .",
     "lint": "npm run eslint && npm run remark",
     "test": "mocha",
-    "coverage": "nyc --reporter=html --reporter=text mocha",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha",
     "prepare": "husky"
   },
   "nyc": {
@@ -66,7 +65,6 @@
     "@commitlint/config-conventional": "^17.8.1",
     "@eslint/js": "^9.39.4",
     "chai": "^4.5.0",
-    "coveralls": "^3.1.1",
     "eslint": "^9.39.4",
     "eslint-plugin-mocha": "^10.5.0",
     "globals": "^13.24.0",
