@@ -4,7 +4,7 @@ import mochaPlugin from "eslint-plugin-mocha";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  mochaPlugin.configs.recommended,
+  mochaPlugin.configs.flat.recommended,
   {
     files: ["**/*.{js,mjs,cjs}"],
     plugins: { js },
